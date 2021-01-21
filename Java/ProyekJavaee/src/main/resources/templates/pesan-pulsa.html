@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ 	<meta charset = "ISO-8859-1"/>
+ 	<title>View Users</title>
+ 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+ 	</script>
+ 	<script>
+ 		
+ 		
+ 		$(document).on('click','.table #f-submit',function(){
+			var pulsaModel = {
+					"jumlah_pulsa": document.getElementById("f-jumlahpulsa").value,
+					"nomor_pengisian": document.getElementById("f-nomorpengisian").value
+					};
+			var requestJSON = JSON.stringify(pulsaModel);
+			$.ajax({
+				type : "POST",
+				url : "http://localhost:8081/JAVAEE/PROYEK/PHP_JSON/pesanPulsa.php",
+				headers : {
+					"Content-Type" : "application/json"
+				},
+				data : requestJSON,
+				success : function(data){
+					window.location.href="http://localhost:8080/index"
+				},
+				error : function(data){
+				}
+			});
+		});
+ 		
+ 		 
+ 	</script>
+ </head>
+
+ <body>
+ 	<h4>Data Produk</h4>
+ 	<br>
+ 	<table id="viewDataUsers" class="table" border="1">
+ 		<tr>
+ 			<th>Id</th>
+ 			<td></td>
+ 			<td><input type="hidden"></td>
+ 				
+ 		</tr>
+ 		
+	<tr>
+		<th>Jumlah Pulsa</th>
+		<td></td>
+		<td>
+			<select  id='f-jumlahpulsa'>
+				<option id='jumlah_1' value='10000'>10000</option>
+				<option id='jumlah_2' value='20000'>20000</option>
+				<option id='jumlah_3' value='50000'>50000</option>
+				<option id='jumlah_4' value='75000'>75000</option>
+				<option id='jumlah_5' value='100000'>100000</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+			<th>Nomor Pengisian</th>
+			<td></td>
+			<td><input id='f-nomorpengisian' type="text"></td>
+			
+	</tr>
+	<tr>
+		<td><button id='f-submit'>Submit</button></td>
+	</tr>
+ </table>
+ 	
+ </body>
+</html>

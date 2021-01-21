@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+ <head>
+ 	<meta charset = "ISO-8859-1"/>
+ 	<title>Update Users</title>
+ 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+ 	</script>
+
+ </head>
+
+ <body>
+ 	<form action="#" th:action="@{/update-produk}" th:object="${Produk}" method="POST">
+    	<input type="hidden" th:field="*{produk_id}">
+    	<p>ID: <input type="text" th:field="*{produk_id}" readonly/></p>
+    	<p>Nama Produk: <input type="text" th:field="*{nama_produk}"/></p>
+        <p>Jenis produk: <select th:field="*{jenis_produk}" id='jenis_produk'>
+									<option id='jenis_1' value='Makanan'>Makanan</option>
+									<option id='jenis_2' value='Meinuman'>Minuman</option>
+								</select></p>
+        <p>Deskripsi: <input type="text" th:field="*{deskripsi_produk}"/></p>
+        <p>Harga: <input type="number" th:field="*{harga}" /></p>
+        <p>Stok: <input type="number" th:field="*{stok}" /></p>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+ </body>
+</html>
