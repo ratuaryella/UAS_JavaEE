@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ 	<meta charset = "ISO-8859-1"/>
+ 	<title>View Users</title>
+ 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+ 	</script>
+ 	<script>
+ 		$(document).ready(function(){
+ 		$.getJSON("http://localhost:8080/produks", function(result){
+ 		var data='';
+ 		for (var i = 0; i < result.length; i++) {
+ 		data += "<tr><td>" + result[i].produk_id + "</td><td>" +
+ 		result[i].nama_produk +"</td><td>" +
+ 		result[i].jenis_produk +"</td><td>" + 		 
+ 		result[i].deskripsi_produk +"</td><td>" +
+ 		result[i].harga +"</td><td>" + 
+ 		result[i].stok +"</td><td>" +
+ 		"<button><a href='update-produk/"+ result[i].produk_id + "'>Update</a></button>" +"<td id=" + result[i].produk_id + "><button id=delete>Delete</button></td></tr>";
+ 	}
+ 		
+ 	$("#viewDataUsers").append(data);
+ 		});
+ 	});
+ 		
+ 		$(document).on('click','.table #delete',function(){
+			var id = $(this).parent().attr('id');
+			$.ajax({
+				type : "DELETE",
+				url : "http://localhost:8080/produks/"+id,
+				success: function(response){
+					window.location.href="http://localhost:8080/view-produk"
+				}
+			})
+		});
+ 		
+ 		$(document).on('click','.table #f-submit',function(){
+			var produkModel = {
+					"nama_produk": document.getElementById("f-namaproduk").value,
+					"jenis_produk": document.getElementById("f-jenisproduk").value,
+					"deskripsi_produk": document.getElementById("f-deskripsiproduk").value,
+					"harga": document.getElementById("f-harga").value,
+					"stok": document.getElementById("f-stok").value};
+			var requestJSON = JSON.stringify(produkModel);
+			$.ajax({
+				type : "POST",
+				url : "http://localhost:8080/produks/",
+				headers : {
+					"Content-Type" : "application/json"
+				},
+				data : requestJSON,
+				success : function(data){
+					window.location.href="http://localhost:8080/view-produk"
+				},
+				error : function(data){
+				}
+			});
+		});
+ 		
+ 		 
+ 	</script>
+ </head>
+
+ <body>
+ 	<h4>Data Produk</h4>
+ 	<br>
+ 	<table id="viewDataUsers" class="table" border="1">
+ 		<tr>
+ 			<th>Id</th>
+ 			<th>Nama Produk</th>
+ 			<th>Jenis Produk</th>
+ 			<th>Deskripsi</th>
+ 			<th>Harga</th> 			
+ 			<th>Stok</th> 			
+ 		</tr>
+ 		<tr>
+			<td><input type="hidden"></td>
+			<td><input id='f-namaproduk' type="text"></td>
+			<td>
+				<select  id='f-jenisproduk'>
+					<option id='jenis_1' value='Makanan'>Makanan</option>
+					<option id='jenis_2' value='Minuman'>Minuman</option>
+				</select>
+			</td>
+			<td><input id='f-deskripsiproduk' type="text"></td>
+			<td><input id='f-harga' type="number" min="1000"></td>
+			<td><input id='f-stok' type="number" min="1000"></td>			
+			<td><button id='f-submit'>Submit</button></td>
+	</tr>
+ </table>
+ 	
+ </body>
+</html>

@@ -13,7 +13,7 @@
           <input type="submit" value="Daftar" name="daftar" />
             <div class="utilities">
               <a>Sudah punya akun?</a>
-              <a href="login.php">Login disini! &rarr;</a>
+              <a href="index.php">Login disini! &rarr;</a>
             </div>
         </form>
     </div>
